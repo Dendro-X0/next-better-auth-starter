@@ -33,7 +33,7 @@ interface EmailService {
  * - SMTP (Mailhog in dev)
  */
 function createEmailService(): EmailService {
-  const from: string = env.EMAIL_FROM;
+  const from: string = env.EMAIL_FROM ?? "onboarding@resend.dev";
 
   if (env.MAIL_PROVIDER === "RESEND" && env.RESEND_API_KEY) {
     const resend = new Resend(env.RESEND_API_KEY);

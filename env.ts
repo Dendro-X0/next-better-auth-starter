@@ -6,7 +6,7 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
     BETTER_AUTH_SECRET: z.string().min(1),
     RESEND_API_KEY: z.string().optional(),
-    EMAIL_FROM: z.string().min(1),
+    EMAIL_FROM: z.string().optional(),
     MAIL_PROVIDER: z.enum(["RESEND", "SMTP"]).default("RESEND"),
     SMTP_HOST: z.string().default("localhost"),
     SMTP_PORT: z.coerce.number().default(1025),

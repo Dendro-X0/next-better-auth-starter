@@ -1,9 +1,8 @@
 # Next.js Better Auth Starterkit
 
-![CI](https://github.com/your-username/next-better-auth-starter/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Dendro-X0/next-better-auth-starter/actions/workflows/ci.yml/badge.svg)
 
 This is a production-ready boilerplate for Next.js 15, featuring a robust authentication system powered by **Better Auth**. It includes everything you need to get started with a secure, modern web application, including email/password login, social providers, magic links, and two-factor authentication (2FA).
-> Beta: This project is in active development. Interfaces and behavior may change. External contributions are temporarily closed.
 
 ## ✨ Features
 
@@ -32,7 +31,7 @@ This is a production-ready boilerplate for Next.js 15, featuring a robust authen
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/next-better-auth-starter.git
+git clone https://github.com/Dendro-X0/next-better-auth-starter.git
 cd next-better-auth-starter
 ```
 
@@ -127,7 +126,7 @@ Replace `[provider]` with `google` or `github`.
 
 Deploy with one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/next-better-auth-starter&project-name=next-better-auth-starter&repository-name=next-better-auth-starter&env=BETTER_AUTH_SECRET,DATABASE_URL,NEXT_PUBLIC_APP_URL,RESEND_API_KEY,EMAIL_FROM,MAIL_PROVIDER,SMTP_HOST,SMTP_PORT,SMTP_SECURE,SMTP_USER,SMTP_PASS,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,UPSTASH_REDIS_URL,UPSTASH_REDIS_TOKEN)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Dendro-X0/next-better-auth-starter&project-name=next-better-auth-starter&repository-name=next-better-auth-starter&env=BETTER_AUTH_SECRET,DATABASE_URL,NEXT_PUBLIC_APP_URL,RESEND_API_KEY,EMAIL_FROM,MAIL_PROVIDER,SMTP_HOST,SMTP_PORT,SMTP_SECURE,SMTP_USER,SMTP_PASS,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,UPSTASH_REDIS_URL,UPSTASH_REDIS_TOKEN)
 
 1. Push your code to GitHub
 2. Connect your repository to Vercel
@@ -211,3 +210,4 @@ This project is licensed under the MIT License.
 - See `.env.example` for all required environment variables (OAuth, email provider, database).
 - Distributed rate limiting via Upstash is optional; when `UPSTASH_REDIS_*` are unset, it is disabled locally.
 - This is a beta release; APIs and flows may change before public release.
+ - `EMAIL_FROM` is optional in local development. If omitted, a safe default (`onboarding@resend.dev`) is used. For production, set a verified sender address.
