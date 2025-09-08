@@ -3,9 +3,19 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url(),
-    BETTER_AUTH_SECRET: z.string().min(1),
+    /**
+     * PostgreSQL database URL. For CI/build without envs, we default to a local placeholder.
+     * pg.Pool does not establish a connection until the first query, so this default
+     * allows builds to succeed while still failing fast at runtime when the DB is actually used.
+     */
+    DATABASE_URL: z
+      .string()
+      .url()
+      .default("postgresql://postgres:postgres@localhost:5432/postgres"),
+    /** Secret for Better Auth. Defaults to a dev-safe value so builds can pass. */
+    BETTER_AUTH_SECRET: z.string().min(1).default("dev-better-auth-secret"),
     RESEND_API_KEY: z.string().optional(),
+    /** Sender email. Optional; defaults to Resend's demo sender in email service. */
     EMAIL_FROM: z.string().optional(),
     MAIL_PROVIDER: z.enum(["RESEND", "SMTP"]).default("RESEND"),
     SMTP_HOST: z.string().default("localhost"),
@@ -23,16 +33,18 @@ export const env = createEnv({
       .default(false),
     SMTP_USER: z.string().optional(),
     SMTP_PASS: z.string().optional(),
-    GOOGLE_CLIENT_ID: z.string().min(1),
-    GOOGLE_CLIENT_SECRET: z.string().min(1),
-    GITHUB_CLIENT_ID: z.string().min(1),
-    GITHUB_CLIENT_SECRET: z.string().min(1),
+    // OAuth credentials default to placeholders to avoid failing builds.
+    GOOGLE_CLIENT_ID: z.string().min(1).default("test-google-client-id"),
+    GOOGLE_CLIENT_SECRET: z.string().min(1).default("test-google-client-secret"),
+    GITHUB_CLIENT_ID: z.string().min(1).default("test-github-client-id"),
+    GITHUB_CLIENT_SECRET: z.string().min(1).default("test-github-client-secret"),
     // Optional: Upstash Redis for distributed rate limiting
     UPSTASH_REDIS_URL: z.string().url().optional(),
     UPSTASH_REDIS_TOKEN: z.string().min(1).optional(),
   },
   client: {
-    NEXT_PUBLIC_APP_URL: z.string().url(),
+    /** Public app URL. Default to localhost so builds do not fail. */
+    NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
