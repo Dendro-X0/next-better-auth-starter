@@ -24,13 +24,13 @@ export default function SignupPage() {
         <FormMessage state={state} />
         <div className="space-y-2">
           <Label htmlFor="name">Username</Label>
-          <Input id="name" name="name" type="text" placeholder="Choose a username" />
+          <Input id="name" name="name" type="text" placeholder="Choose a username" autoComplete="username" />
           <FieldMessage messages={state.error?.fields?.name} />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" placeholder="Enter your email" />
+          <Input id="email" name="email" type="email" placeholder="Enter your email" autoComplete="email" inputMode="email" />
           <FieldMessage messages={state.error?.fields?.email} />
         </div>
 
@@ -41,6 +41,7 @@ export default function SignupPage() {
             name="password"
             type="password"
             placeholder="Create a password"
+            autoComplete="new-password"
             onChange={(e) => setPassword(e.target.value)}
           />
           {password && <PasswordStrengthIndicator password={password} />}
@@ -54,6 +55,7 @@ export default function SignupPage() {
             name="confirmPassword"
             type="password"
             placeholder="Confirm your password"
+            autoComplete="new-password"
           />
           <FieldMessage messages={state.error?.fields?.confirmPassword} />
         </div>

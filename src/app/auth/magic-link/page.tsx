@@ -40,7 +40,7 @@ export default function MagicLinkPage() {
         <FormMessage state={state} />
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" placeholder="Enter your email" required />
+          <Input id="email" name="email" type="email" placeholder="Enter your email" required autoComplete="email" inputMode="email" />
         </div>
         <SubmitButton className="w-full">Send magic link</SubmitButton>
       </form>

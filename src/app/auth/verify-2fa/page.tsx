@@ -38,6 +38,8 @@ export default function Verify2FAPage() {
                 type="text"
                 placeholder="Enter 6-digit code"
                 maxLength={6}
+                inputMode="numeric"
+                autoComplete="one-time-code"
                 className="text-center text-lg tracking-widest"
               />
               <FieldMessage messages={state.error?.fields?.code} />
@@ -50,7 +52,7 @@ export default function Verify2FAPage() {
           <TabsContent value="backup" className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="backupCode">Backup Code</Label>
-              <Input id="backupCode" name="backupCode" type="text" placeholder="Enter backup code" />
+              <Input id="backupCode" name="backupCode" type="text" placeholder="Enter backup code" autoCapitalize="off" autoCorrect="off" />
               <FieldMessage messages={state.error?.fields?.backupCode} />
               <p className="text-xs text-muted-foreground">
                 Enter one of your backup codes

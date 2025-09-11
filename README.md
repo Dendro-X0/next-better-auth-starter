@@ -20,6 +20,25 @@ This is a production-ready boilerplate for Next.js 15, featuring a robust authen
 - **Type Safety**: End-to-end type safety with TypeScript.
 - **Environment Variables**: Zod-based validation for environment variables using T3 Env.
 
+## ♿ Mobile & Accessibility (A11y)
+
+This starter ships with A11y and mobile-friendly defaults:
+
+- **Skip to content**: A visually hidden skip link is injected in `src/app/layout.tsx`. The main content uses `<main id="main-content" tabIndex={-1}>` for quick keyboard access.
+- **Landmarks & nav**: `src/components/layout/header.tsx` wraps controls in a `<nav aria-label="Primary">` and labels the home link for assistive tech.
+- **Forms**:
+  - Inputs use `autoComplete`/`inputMode` hints (e.g., `email`, `current-password`, `new-password`, `username`, `one-time-code`, `numeric`) for better mobile keyboards and autofill.
+  - Field-level messages appear near their inputs via `FieldMessage`; top-level action outcomes are shown with `FormMessage`.
+- **2FA input UX**: Verification code uses `inputMode="numeric"` and `autoComplete="one-time-code"` for OTP auto-fill on supported devices.
+- **Focus visibility**: All interactive components include visible `:focus-visible` styles from Tailwind/shadcn tokens.
+- **Mobile viewport**: `export const viewport` is declared in `src/app/layout.tsx` for correct device scaling.
+
+When adding new pages or forms:
+
+1. Ensure a unique main region or labeled section exists to anchor the skip link target.
+2. Add `autoComplete` and `inputMode` on inputs to improve mobile and accessibility.
+3. Prefer buttons for actions and links for navigation, and keep focus states obvious.
+
 ## 🚀 Getting Started
 
 ### Prerequisites

@@ -38,6 +38,8 @@ function LoginContent() {
             name="email"
             type="email"
             placeholder="name@example.com"
+            autoComplete="email"
+            inputMode="email"
             required
           />
           <FieldMessage messages={state?.error?.fields?.email} />
@@ -55,6 +57,7 @@ function LoginContent() {
             name="password"
             type="password"
             placeholder="••••••••"
+            autoComplete="current-password"
             required
           />
           <FieldMessage messages={state?.error?.fields?.password} />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme/theme-provider";
@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   description: "A modern authentication boilerplate built with Next.js and shadcn/ui",
 }
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -33,12 +38,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AppWithQueryClient>
             <DevEnvWarning />
             <div className="min-h-screen flex flex-col bg-background">
               <Header />
-              <main className="flex-1">
+              <main id="main-content" tabIndex={-1} className="flex-1">
                 {children}
               </main>
               <Footer />

@@ -33,6 +33,7 @@ export function ThemeToggle() {
           size="icon"
           className={cn(
             "rounded-full h-8 w-8",
+            t.name === "system" && "hidden sm:inline-flex",
             theme === t.name && "bg-accent text-accent-foreground"
           )}
           onClick={() => setTheme(t.name)}

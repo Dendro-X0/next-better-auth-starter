@@ -7,9 +7,9 @@ export default function AuthLayout({
 }) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1 flex items-center justify-center p-4">
+      <section role="region" aria-label="Authentication" className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md">{children}</div>
-      </main>
+      </section>
     </div>
   )
 }
