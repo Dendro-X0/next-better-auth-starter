@@ -30,6 +30,10 @@ export const auth = betterAuth({
   },
   emailVerification: {
     sendOnSignUp: true,
+    // If the first verification email was missed or failed, try again when the user signs in.
+    sendOnSignIn: true,
+    // Once verified, sign the user in automatically for a smoother flow.
+    autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
       await emailService.sendVerificationEmail({ email: user.email, url, name: user.name as string });
     },

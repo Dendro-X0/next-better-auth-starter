@@ -11,6 +11,7 @@ import { SocialLogin } from "@/components/auth/social-login"
 import { SubmitButton } from "@/components/auth/submit-button"
 import { FieldMessage } from "@/components/auth/field-message";
 import { FormMessage } from "@/components/auth/form-message";
+import { ResendVerificationForm } from "@/components/auth/resend-verification-form";
 
 import { loginAction, type LoginFormState } from "@/actions/login";
 
@@ -77,6 +78,8 @@ function LoginContent() {
       </form>
 
       <SocialLogin />
+
+      <ResendVerificationForm />
 
       <div className="text-center text-sm">
         Don&apos;t have an account?{' '}
