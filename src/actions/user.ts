@@ -11,7 +11,7 @@ import {
 } from "@/lib/validations/auth";
 import { db } from "@/lib/db";
 import { account, user, userProfile } from "@/lib/db/schema";
-import { eq, and } from "drizzle-orm";
+import { eq, and, ne } from "drizzle-orm";
 import type { UserProfile as UserProfileType, UserSettings } from "@/lib/types/user";
 import type { FormState } from "@/lib/types/actions";
 
@@ -102,6 +102,16 @@ export async function updateProfileAction(_prevState: FormState | null, formData
 
   try {
     const { name, username, bio, location, website } = validatedFields.data;
+
+    // Enforce username uniqueness when changed
+    if (username) {
+      const taken = await db.query.user.findFirst({
+        where: and(eq(user.username, username), ne(user.id, session.user.id)),
+      });
+      if (taken) {
+        return { error: { fields: { username: ["Username is already taken"] } } };
+      }
+    }
 
     await db.update(user).set({ name, username }).where(eq(user.id, session.user.id));
 

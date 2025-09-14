@@ -23,9 +23,15 @@ export default function SignupPage() {
       <form noValidate action={formAction} className="space-y-4">
         <FormMessage state={state} />
         <div className="space-y-2">
-          <Label htmlFor="name">Username</Label>
-          <Input id="name" name="name" type="text" placeholder="Choose a username" autoComplete="username" />
+          <Label htmlFor="name">Full Name</Label>
+          <Input id="name" name="name" type="text" placeholder="Your full name" autoComplete="name" />
           <FieldMessage messages={state.error?.fields?.name} />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="username">Username</Label>
+          <Input id="username" name="username" type="text" placeholder="Choose a username" autoComplete="username" />
+          <FieldMessage messages={state.error?.fields?.username} />
         </div>
 
         <div className="space-y-2">

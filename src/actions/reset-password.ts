@@ -6,6 +6,7 @@ import { isAuthError } from "@/lib/auth/auth-utils";
 import { ResetPasswordSchema } from "@/lib/validations/auth";
 import { headers } from "next/headers";
 import { rateLimit, getClientIp } from "@/lib/security";
+import type { ZodIssue } from "zod";
 
 export type FormState = {
   error?: { message: string };
@@ -19,8 +20,8 @@ export async function resetPasswordAction(
   const validatedFields = ResetPasswordSchema.safeParse(data);
 
   if (!validatedFields.success) {
-    const errorMessages = validatedFields.error.errors
-      .map((e) => e.message)
+    const errorMessages = validatedFields.error.issues
+      .map((e: ZodIssue) => e.message)
       .join(", ");
     return { error: { message: errorMessages || "Invalid fields provided." } };
   }

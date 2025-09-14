@@ -6,6 +6,9 @@ import { isAuthError } from "@/lib/auth/auth-utils";
 import { SignupSchema } from "@/lib/validations/auth";
 import { headers } from "next/headers";
 import { rateLimit, getClientIp } from "@/lib/security";
+import { db } from "@/lib/db";
+import { user } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
 /**
  * Form state type for signup action
@@ -18,6 +21,7 @@ export type SignupFormState = {
       email?: string[];
       password?: string[];
       name?: string[];
+      username?: string[];
       confirmPassword?: string[];
     };
   };
@@ -44,7 +48,22 @@ export async function signupAction(
       };
     }
 
-    const { email, password, name } = validatedFields.data;
+    const { email, password, name, username } = validatedFields.data as {
+      email: string;
+      password: string;
+      name: string;
+      username: string;
+    };
+
+    // Enforce username uniqueness before calling Better Auth
+    const existingUsername = await db.query.user.findFirst({ where: eq(user.username, username) });
+    if (existingUsername) {
+      return {
+        error: {
+          fields: { username: ["Username is already taken"] },
+        },
+      };
+    }
 
     // Rate limit signups by email + client IP
     const h = await headers();
@@ -54,7 +73,7 @@ export async function signupAction(
       return { error: { message: "Too many sign up attempts. Please try again later." } };
     }
 
-    await auth.api.signUpEmail({ body: { email, password, name } });
+    await auth.api.signUpEmail({ body: { email, password, name, username, displayUsername: username } });
 
     redirect("/auth/login?message=Account created successfully. Please sign in.");
   } catch (error: unknown) {
