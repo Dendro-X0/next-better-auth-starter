@@ -33,17 +33,17 @@ function LoginContent() {
     <div className="space-y-6">
       <form action={formAction} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="identifier">Email or Username</Label>
           <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="name@example.com"
-            autoComplete="email"
-            inputMode="email"
+            id="identifier"
+            name="identifier"
+            type="text"
+            placeholder="name@example.com or johndoe"
+            autoComplete="username"
+            inputMode="text"
             required
           />
-          <FieldMessage messages={state?.error?.fields?.email} />
+          <FieldMessage messages={state?.error?.fields?.identifier} />
         </div>
 
         <div className="space-y-2">

@@ -1,9 +1,18 @@
 import { z } from "zod";
 
 export const LoginSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
+  identifier: z
+    .string()
+    .min(3, { message: "Please enter your email or username." })
+    .max(100, { message: "Identifier is too long." })
+    .refine(
+      (val) => {
+        const isEmail = /.+@.+\..+/.test(val);
+        const isUsername = /^[a-zA-Z0-9._-]{3,30}$/.test(val);
+        return isEmail || isUsername;
+      },
+      { message: "Enter a valid email or username." },
+    ),
   password: z.string().min(1, {
     message: "Password is required.",
   }),

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2025-09-14
+
+### Added
+- Support for signing in with either email or username plus password.
+
+### Changed
+- `LoginSchema` now accepts `identifier` (email or username) instead of `email`.
+- Login page UI updated to show an "Email or Username" field and send `identifier`.
+- Server `loginAction` now routes to Better Auth `signInEmail` or `signInUsername` (via the `username` plugin) based on the identifier.
+- Rate-limiting updated to use the provided identifier.
+
+### Notes
+- No database migration required. The `user.username` column is already present and unique in the Drizzle schema.
+
 ## 2025-09-12
 
 ### Added

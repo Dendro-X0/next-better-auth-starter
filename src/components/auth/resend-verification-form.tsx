@@ -14,9 +14,9 @@ export function ResendVerificationForm(): React.ReactElement {
   const [state, action] = useActionState(resendVerification, {} as ResendVerificationState);
   return (
     <div className="mt-6 border-t pt-6">
-      <h3 className="text-sm font-medium">Didn't receive the verification email?</h3>
+      <h3 className="text-sm font-medium">Didn&apos;t receive the verification email?</h3>
       <p className="text-xs text-muted-foreground mb-3">
-        Enter your email address and we'll send a new verification link.
+        Enter your email address and we&apos;ll send a new verification link.
       </p>
       <form action={action} className="space-y-3">
         <div className="space-y-2">
@@ -51,3 +51,4 @@ function SubmitButton(): React.ReactElement {
     </Button>
   );
 }
+

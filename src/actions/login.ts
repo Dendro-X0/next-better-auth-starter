@@ -15,7 +15,7 @@ export type LoginFormState = {
   error?: {
     message?: string;
     fields?: {
-      email?: string[];
+      identifier?: string[];
       password?: string[];
     };
   };
@@ -41,17 +41,25 @@ export async function loginAction(
       };
     }
 
-    const { email, password } = validatedFields.data;
+    const { identifier, password } = validatedFields.data;
+    const isEmail = /.+@.+\..+/.test(identifier);
 
     // Rate limit logins by email + client IP
     const h = await headers();
     const ip: string = getClientIp(h);
-    const rl = await rateLimit({ action: "login", identifier: email, ip });
+    const rl = await rateLimit({ action: "login", identifier, ip });
     if (!rl.ok) {
       return { error: { message: "Too many login attempts. Please try again later." } };
     }
 
-    await auth.api.signInEmail({ body: { email, password } });
+    if (isEmail) {
+      await auth.api.signInEmail({ body: { email: identifier, password } });
+    } else {
+      // Username sign-in provided by Better Auth username plugin
+      // https://www.better-auth.com/docs/plugins/username
+      // Server API: auth.api.signInUsername({ body: { username, password } })
+      await auth.api.signInUsername({ body: { username: identifier, password } });
+    }
     redirect("/user?message=Logged%20in%20successfully");
   } catch (error: unknown) {
     if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
